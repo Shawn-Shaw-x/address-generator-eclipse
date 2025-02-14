@@ -1,6 +1,6 @@
-const bs58 = require('bs58');
-import { Keypair } from '@solana/web3.js';
-
+import bs58 from 'bs58';
+import {Keypair, PublicKey} from '@solana/web3.js';
+import { createTransaction} from './sign'
 class SolanaAccount {
     // @ts-ignore
     private network: string;
@@ -11,7 +11,7 @@ class SolanaAccount {
     // @ts-ignore
     private keyPair: Keypair;
     // @ts-ignore
-    private publicKey: Keypair.PublicKey;
+    publicKey: Keypair.PublicKey;
     constructor({network, index, path, keyPair}) {
         this.network = network;
         this.index = index;
@@ -28,6 +28,17 @@ class SolanaAccount {
     }
     getPublicKey() {
         return this.keyPair.publicKey;
+    }
+
+     async createTransferTransaction(destination, token, amount, recentBlockhash, opts = {}) {
+        return createTransaction(
+            this.keyPair,
+            new PublicKey(destination),
+            token,
+            amount,
+            recentBlockhash,
+            opts
+        );
     }
 }
 

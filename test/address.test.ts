@@ -39,7 +39,11 @@ describe("test  address", () => {
     test("test solana(eclipse) address", async () => {
         const account = await createSolana({ network: NETWORK_DEVNET, mnemonic: MNEMONIC })
         console.log("privateKey:"+account.getPrivateKey());
+        console.log("privateKey length:"+account.getPrivateKey().length);
+
         console.log("publicKey:"+account.getPublicKey());
+        console.log("publicKey length:"+account.getPublicKey().toString().length);
         console.log("address:"+account.getAddress());
+        console.log("address length:"+account.getAddress().length);
     })
 })
